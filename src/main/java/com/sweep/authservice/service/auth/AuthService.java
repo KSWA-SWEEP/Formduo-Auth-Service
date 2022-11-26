@@ -86,6 +86,10 @@ public class AuthService {
         Authentication authenticate = authenticationManager.authenticate(customEmailPasswordAuthToken);
         String email = authenticate.getName();
         Members members = customUserDetailsService.getMember(email);
+
+        if (members.getDelYn() == 'Y'){
+            throw new IllegalArgumentException("탈퇴환 회원입니다.");
+        }
 //        System.out.println(email + members.toString());
 
         String accessToken = tokenProvider.createAccessToken(email, members.getAuthorities());
