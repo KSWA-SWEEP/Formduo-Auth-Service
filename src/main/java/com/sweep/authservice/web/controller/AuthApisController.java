@@ -2,6 +2,7 @@ package com.sweep.authservice.web.controller;
 
 import com.sweep.authservice.domain.members.Members;
 import com.sweep.authservice.web.dto.jwt.TokenDTO;
+import com.sweep.authservice.web.dto.jwt.TokenReqDTO;
 import com.sweep.authservice.web.dto.login.LoginReqDTO;
 import com.sweep.authservice.web.dto.members.MemberEmailDto;
 import com.sweep.authservice.web.dto.members.MemberReqDTO;
@@ -67,7 +68,7 @@ public class AuthApisController {
 
     @Operation(summary = "토큰 재발급")
     @PostMapping("/reissue")
-    public TokenDTO reissue( HttpServletRequest request,
+    public TokenDTO reissue( TokenReqDTO request,
                              HttpServletResponse response
     ) {
         return authService.reissue(request, response);
