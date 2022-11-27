@@ -16,6 +16,13 @@ pipeline {
 
 
     stages {
+        stage('Start') {
+            agent any
+            steps {
+                slackSend (channel: '#jenkins', color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            }
+        }
+      
         stage('Checkout Application Git Branch') {
             steps {
                 git credentialsId: "${gitCredentialId}",
@@ -24,6 +31,7 @@ pipeline {
             }
             post {
                     failure {
+                      slackSend (channel: '#jenkins', color: '#FF0000', message: "Repository Clone Failure !: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                       echo 'Repository clone failure !'
                     }
                     success {
