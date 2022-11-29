@@ -68,10 +68,10 @@ public class AuthApisController {
 
     @Operation(summary = "토큰 재발급")
     @PostMapping("/reissue")
-    public TokenDTO reissue( TokenReqDTO request,
-                             HttpServletResponse response
+    public TokenDTO reissue(@RequestBody TokenReqDTO tokenReqDTO,
+                            HttpServletResponse response
     ) {
-        return authService.reissue(request, response);
+        return authService.reissue(tokenReqDTO, response);
     }
 
     @Operation(summary = "로그아웃")
