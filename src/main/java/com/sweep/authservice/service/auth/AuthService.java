@@ -239,9 +239,9 @@ public class AuthService {
             System.out.println("### check equals : " + refreshToken.getValue().equals(originRefreshToken));
 
             // Refresh Token 일치하는지 검사
-            if (!refreshToken.getValue().equals(originRefreshToken)) {
-                throw new BizException(JwtExceptionType.BAD_TOKEN); // 토큰이 일치하지 않습니다.
-            }
+//            if (!refreshToken.getValue().equals(originRefreshToken)) {
+//                throw new BizException(JwtExceptionType.BAD_TOKEN); // 토큰이 일치하지 않습니다.
+//            }
         }
 
 
