@@ -177,13 +177,7 @@ public class AuthService {
             RefreshToken refreshToken = refreshTokenRepository.findByEmail(authentication.getName())
                     .orElseThrow(() -> new BizException(MemberExceptionType.LOGOUT_MEMBER)); // 로그 아웃된 사용자
 
-            String refTokenValue = refreshToken.getValue();
-            System.out.println("@@@ originRefreshToken : " + originRefreshToken);
             System.out.println("@@@ refreshToken : " + refreshToken.getValue());
-            System.out.println("@@@ refreshToken value : " + refTokenValue);
-            System.out.println("@@@ check equals 1 : " + refreshToken.getValue().equals(originRefreshToken));
-            System.out.println("@@@ check equals 2 : " + (refreshToken.getValue()).equals(originRefreshToken));
-            System.out.println("@@@ check equals 3 : " + refTokenValue.equals(originRefreshToken));
 
             // Refresh Token 일치하는지 검사
             if (!refreshToken.getValue().equals(originRefreshToken)) {
@@ -209,6 +203,9 @@ public class AuthService {
         String newRefreshToken = tokenProvider.createRefreshToken(email, members.getAuthorities());
         TokenDTO tokenDto = tokenProvider.createTokenDTO(newAccessToken, newRefreshToken, expTime);
 
+        System.out.println("### newAccessToken : " + newAccessToken);
+        System.out.println("### newRefreshToken : " + newRefreshToken);
+
         log.debug("refresh Origin = {}", originRefreshToken);
         log.debug("refresh New = {} ", newRefreshToken);
 
@@ -232,7 +229,15 @@ public class AuthService {
             RefreshToken refreshToken = refreshTokenRepository.findByEmail(authentication.getName())
                     .orElseThrow(() -> new BizException(MemberExceptionType.LOGOUT_MEMBER)); // 로그 아웃된 사용자
 
+            System.out.println("### refreshToken (before update) : " + refreshToken.getValue());
+
             refreshToken.updateValue(newRefreshToken);
+
+            System.out.println("### originRefreshToken : " + originRefreshToken);
+            System.out.println("### rtkInRedis : " + rtkInRedis);
+            System.out.println("### refreshToken : " + refreshToken.getValue());
+            System.out.println("### check equals : " + refreshToken.getValue().equals(originRefreshToken));
+
             // Refresh Token 일치하는지 검사
             if (!refreshToken.getValue().equals(originRefreshToken)) {
                 throw new BizException(JwtExceptionType.BAD_TOKEN); // 토큰이 일치하지 않습니다.
