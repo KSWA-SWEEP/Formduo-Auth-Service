@@ -177,7 +177,7 @@ public class AuthService {
             RefreshToken refreshToken = refreshTokenRepository.findByEmail(authentication.getName())
                     .orElseThrow(() -> new BizException(MemberExceptionType.LOGOUT_MEMBER)); // 로그 아웃된 사용자
 
-            System.out.println("@@@ refreshToken : " + refreshToken);
+            System.out.println("@@@ refreshToken : " + refreshToken.getValue());
 
             // Refresh Token 일치하는지 검사
             if (!refreshToken.getValue().equals(originRefreshToken)) {
