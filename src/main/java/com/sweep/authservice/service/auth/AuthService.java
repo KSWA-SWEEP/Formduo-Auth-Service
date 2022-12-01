@@ -223,6 +223,7 @@ public class AuthService {
         CookieUtil.addPublicCookie(response, "isLogin", isLogin, cookieMaxAge);
         CookieUtil.addPublicCookie(response, "expTime", expTime, cookieMaxAge);
 //
+        rtkInRedis = redisService.getValues(authentication.getName());
 //        // 6. 저장소 정보 업데이트 (dirtyChecking으로 업데이트)
         if (!rtkInRedis.equals(originRefreshToken)) {
             // DB에서 Member Email 를 기반으로 Refresh Token 값 가져옴
@@ -244,6 +245,8 @@ public class AuthService {
 //            }
         }
 
+        System.out.println(">>> originRefreshToken : " + originRefreshToken);
+        System.out.println(">>> newRefreshToken : " + tokenDto.getRefreshToken());
 
         // 토큰 발급
 //        return ApiResponse.success("token", newAccessToken);
