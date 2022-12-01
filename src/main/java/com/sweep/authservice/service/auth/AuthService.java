@@ -203,6 +203,12 @@ public class AuthService {
 
         // 6. Redis 정보 업데이트
         redisService.setValues(email, newRefreshToken, Duration.ofMillis(rtkLive));
+        refreshTokenRepository.save(
+                RefreshToken.builder()
+                        .email(email)
+                        .value(newRefreshToken)
+                        .build()
+        );
 
         int cookieMaxAge = (int) rtkLive / 60;
 //            CookieUtil.deleteCookie(request, response, "access_token");
@@ -214,23 +220,8 @@ public class AuthService {
         String isLogin = "true";
         CookieUtil.addPublicCookie(response, "isLogin", isLogin, cookieMaxAge);
         CookieUtil.addPublicCookie(response, "expTime", expTime, cookieMaxAge);
-//
-        rtkInRedis = redisService.getValues(authentication.getName());
-//        // 6. 저장소 정보 업데이트 (dirtyChecking으로 업데이트)
-        if (!rtkInRedis.equals(originRefreshToken)) {
-            // DB에서 Member Email 를 기반으로 Refresh Token 값 가져옴
-            RefreshToken refreshToken = refreshTokenRepository.findByEmail(authentication.getName())
-                    .orElseThrow(() -> new BizException(MemberExceptionType.LOGOUT_MEMBER)); // 로그 아웃된 사용자
 
-            refreshToken.updateValue(newRefreshToken);
-            // Refresh Token 일치하는지 검사
-//            if (!refreshToken.getValue().equals(originRefreshToken)) {
-//                throw new BizException(JwtExceptionType.BAD_TOKEN); // 토큰이 일치하지 않습니다.
-//            }
-        }
 
-        // 토큰 발급
-//        return ApiResponse.success("token", newAccessToken);
         return tokenDto;
     }
 
