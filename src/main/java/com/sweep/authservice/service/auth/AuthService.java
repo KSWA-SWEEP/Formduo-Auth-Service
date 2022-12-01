@@ -177,7 +177,13 @@ public class AuthService {
             RefreshToken refreshToken = refreshTokenRepository.findByEmail(authentication.getName())
                     .orElseThrow(() -> new BizException(MemberExceptionType.LOGOUT_MEMBER)); // 로그 아웃된 사용자
 
+            String refTokenValue = refreshToken.getValue();
+            System.out.println("@@@ originRefreshToken : " + originRefreshToken);
             System.out.println("@@@ refreshToken : " + refreshToken.getValue());
+            System.out.println("@@@ refreshToken value : " + refTokenValue);
+            System.out.println("@@@ check equals 1 : " + refreshToken.getValue().equals(originRefreshToken));
+            System.out.println("@@@ check equals 2 : " + (refreshToken.getValue()).equals(originRefreshToken));
+            System.out.println("@@@ check equals 3 : " + refTokenValue.equals(originRefreshToken));
 
             // Refresh Token 일치하는지 검사
             if (!refreshToken.getValue().equals(originRefreshToken)) {
