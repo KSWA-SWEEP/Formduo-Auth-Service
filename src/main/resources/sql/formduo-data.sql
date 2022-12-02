@@ -89,8 +89,8 @@ UNLOCK TABLES;
 --
 -- insert test account
 --
-INSERT INTO `member` VALUES (``, `test@formduo.com`, `{bcrypt}$2a$10$Hr84RxtEWAZazMdKO9jZUugaI3gpRIVG3yhJHSn2qlCWhAwSI0pem`, `test user`, NULL, NULL, `N`, NOW());
-INSERT INTO `member_authority` VALUES ((SELECT member_id FROM MEMBER WHERE email = `test@formduo.com`), `ROLE_USER`)
+-- INSERT INTO `member` VALUES (``, `test@formduo.com`, `{bcrypt}$2a$10$Hr84RxtEWAZazMdKO9jZUugaI3gpRIVG3yhJHSn2qlCWhAwSI0pem`, `test user`, NULL, NULL, `N`, NOW());
+-- INSERT INTO `member_authority` VALUES ((SELECT member_id FROM MEMBER WHERE email = `test@formduo.com`), `ROLE_USER`)
 
 
 
