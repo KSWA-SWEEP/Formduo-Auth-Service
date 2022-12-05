@@ -54,7 +54,7 @@ public class AuthApisController {
     }
 
     @Operation(summary = "회원여부 확인")
-    @PostMapping("/isMember")
+    @PostMapping("/is-member")
     public Optional<Members> isMember(
             @RequestBody MemberEmailDto memberRequestDto) {
         return authService.isMember(memberRequestDto);
