@@ -61,7 +61,7 @@ public class AuthApisController {
     }
 
     @Operation(summary = "비밀번호 변경", description = "비밀번호 재설정을 요청합니다.")
-    @PutMapping("/changePw")
+    @PutMapping("/change-pw")
     public void changePw(@RequestBody MemberUpdateDTO dto) {
         authService.updatePw(dto);
     }
